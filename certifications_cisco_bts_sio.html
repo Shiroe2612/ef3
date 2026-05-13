@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="slides-format" content="viewport">
+    <title>Certifications Cisco Netacad — BTS SIO SLAM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-bg: #0a0a0f;
+            --color-bg-deep: #050508;
+            --color-surface: #141420;
+            --color-text: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --color-accent-1: #FF6B2B;
+            --color-accent-2: #FBBF24;
+            --color-accent-3: #EF4444;
+            --color-glass-bg: rgba(255,107,43,0.06);
+            --color-glass-border: rgba(255,107,43,0.15);
+            --color-vignette: rgba(0,0,0,0.5);
+            --font-display: "JetBrains Mono", monospace;
+            --font-body: "Inter", sans-serif;
+        }
+    </style>
+    <style>
+        :root { --color-bg: #0a0a0f; --color-text: #f1f5f9; --glow-color-rgb: 255,107,43; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { background: var(--color-bg); margin: 0; }
+        body { font-family: "Inter", sans-serif; color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+        .deck { width: 100vw; height: 100vh; position: relative; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.95); transition: opacity 0.7s ease, transform 0.7s ease; pointer-events: none; overflow: hidden; }
+        .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+        .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1100px; padding: clamp(1.5rem, 3vw, 3rem); }
+        .nav-controls { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(255,107,43,0.06); backdrop-filter: blur(10px); padding: 10px 24px; border-radius: 40px; border: 1px solid rgba(255,107,43,0.2); }
+        .nav-btn { width: 38px; height: 38px; border: none; background: rgba(255,107,43,0.1); color: #FF6B2B; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .nav-btn:hover { background: rgba(255,107,43,0.25); }
+        .slide-dots { display: flex; gap: 8px; }
+        .slide-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,107,43,0.2); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+        .slide-dots .dot.active { background: #FF6B2B; transform: scale(1.3); }
+        .slide-counter { font-size: 0.75rem; color: #94a3b8; min-width: 40px; text-align: center; font-family: "JetBrains Mono", monospace; }
+        .reveal { opacity: 0; transform: translateY(20px); }
+        .text-glow { text-shadow: 0 0 20px rgba(255,107,43,0.5), 0 0 40px rgba(255,107,43,0.2); }
+        @keyframes glow-pulse { 0%,100%{text-shadow:0 0 20px rgba(255,107,43,0.5),0 0 40px rgba(255,107,43,0.2);}50%{text-shadow:0 0 30px rgba(255,107,43,0.8),0 0 60px rgba(255,107,43,0.3);} }
+        .glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+        @keyframes float-slow { 0%{transform:translate(0,0) scale(1);}25%{transform:translate(60px,-50px) scale(1.12);}50%{transform:translate(-40px,40px) scale(0.9);}75%{transform:translate(50px,20px) scale(1.08);}100%{transform:translate(0,0) scale(1);} }
+        @keyframes float-drift { 0%{transform:translate(0,0) scale(1) rotate(0deg);}33%{transform:translate(-50px,-60px) scale(1.15) rotate(3deg);}66%{transform:translate(40px,30px) scale(0.88) rotate(-2deg);}100%{transform:translate(0,0) scale(1) rotate(0deg);} }
+        .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: float-slow 12s ease-in-out infinite; }
+        .blob:nth-child(2) { animation: float-drift 16s ease-in-out infinite; }
+        .blob:nth-child(3) { animation: float-slow 20s ease-in-out infinite reverse; }
+        .slide::before { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0.03; mix-blend-mode:overlay; }
+        .slide::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(ellipse at center, transparent 50%, var(--color-vignette) 100%); }
+        .module-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(255,107,43,0.08); border:1px solid rgba(255,107,43,0.2); border-radius:6px; padding:4px 10px; font-size:0.72rem; font-family:"JetBrains Mono",monospace; color:#FF6B2B; }
+        .module-row { display:flex; align-items:flex-start; gap:12px; padding:8px 14px; border-radius:8px; background:rgba(255,107,43,0.04); border-left:3px solid; margin-bottom:6px; }
+    </style>
+</head>
+<body>
+<div class="mouse-spotlight" style="position:fixed;inset:0;z-index:99;pointer-events:none;"></div>
+<div class="deck">
+
+<!-- SLIDE 1 : TITRE -->
+<div class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:500px;height:500px;top:-120px;right:-100px;background:#FF6B2B;opacity:0.12;"></div>
+        <div class="blob" style="width:300px;height:300px;bottom:-80px;left:-60px;background:#FBBF24;opacity:0.08;"></div>
+        <div class="blob" style="width:200px;height:200px;top:45%;left:10%;background:#EF4444;opacity:0.07;"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;"></canvas>
+    <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+        <div>
+            <div class="reveal" style="font-family:JetBrains Mono,monospace;color:#FF6B2B;font-size:0.8rem;margin-bottom:1rem;">
+                <span style="color:#94a3b8;">// BTS SIO &middot; Option SLAM &middot; 2&egrave;me ann&eacute;e</span>
+            </div>
+            <h1 class="reveal" style="font-family:JetBrains Mono,monospace;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;line-height:1.1;margin-bottom:1rem;background:linear-gradient(135deg,#FF6B2B,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Certifications<br>Cisco Netacad</h1>
+            <p class="reveal" style="color:#BFA882;font-size:1.05rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;">HTML &amp; JavaScript</p>
+            <div class="reveal" style="display:flex;gap:10px;flex-wrap:wrap;">
+                <span class="module-tag">&#127885; HTML Essentials</span>
+                <span class="module-tag">&#127885; JS Essentials 1</span>
+            </div>
+        </div>
+        <div class="reveal" style="font-family:JetBrains Mono,monospace;font-size:0.85rem;background:rgba(255,107,43,0.05);border:1px solid rgba(255,107,43,0.2);border-radius:12px;padding:1.5rem;line-height:1.8;">
+            <span style="color:#FF6B2B;">const</span> <span style="color:#FBBF24;">dev</span> <span style="color:#fff;">=</span> <span style="color:#FF6B2B;">{</span><br>
+            &nbsp;&nbsp;<span style="color:#94a3b8;">name:</span> <span style="color:#4ade80;">"&Eacute;tudiant BTS SIO"</span>,<br>
+            &nbsp;&nbsp;<span style="color:#94a3b8;">level:</span> <span style="color:#4ade80;">"SLAM 2A"</span>,<br>
+            &nbsp;&nbsp;<span style="color:#94a3b8;">certs:</span> <span style="color:#FF6B2B;">[</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#EF4444;">"HTML Essentials"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#EF4444;">"JS Essentials 1"</span><br>
+            &nbsp;&nbsp;<span style="color:#FF6B2B;">]</span>,<br>
+            &nbsp;&nbsp;<span style="color:#94a3b8;">goal:</span> <span style="color:#FBBF24;">"FullStack Dev"</span><br>
+            <span style="color:#FF6B2B;">};</span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2 : ACCROCHE -->
+<div class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:400px;height:400px;top:-80px;right:-80px;background:#FF6B2B;opacity:0.08;"></div>
+        <div class="blob" style="width:250px;height:250px;bottom:-60px;left:-40px;background:#FBBF24;opacity:0.06;"></div>
+    </div>
+    <div class="content">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.5rem;">01 &middot; ACCROCHE</div>
+        <h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:2rem;">Pourquoi <span style="background:linear-gradient(135deg,#FF6B2B,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">HTML &amp; JavaScript</span><br>au c&oelig;ur de tout&nbsp;?</h2>
+        <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;">
+            <div style="background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.15);border-radius:12px;padding:1.2rem;">
+                <div style="font-size:2rem;margin-bottom:0.6rem;">&#127760;</div>
+                <div style="color:#FF6B2B;font-size:1.8rem;font-weight:800;font-family:JetBrains Mono,monospace;" class="glow-pulse">100%</div>
+                <div style="color:#BFA882;font-size:0.82rem;margin-top:0.3rem;">des sites web reposent sur HTML sans exception</div>
+            </div>
+            <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:1.2rem;">
+                <div style="font-size:2rem;margin-bottom:0.6rem;">&#9889;</div>
+                <div style="color:#FBBF24;font-size:1.8rem;font-weight:800;font-family:JetBrains Mono,monospace;">#1</div>
+                <div style="color:#BFA882;font-size:0.82rem;margin-top:0.3rem;">JS &mdash; langage le + utilis&eacute; au monde (Stack Overflow 2024, 12 ans cons&eacute;cutifs)</div>
+            </div>
+            <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:1.2rem;">
+                <div style="font-size:2rem;margin-bottom:0.6rem;">&#128640;</div>
+                <div style="color:#EF4444;font-size:1.8rem;font-weight:800;font-family:JetBrains Mono,monospace;">Full Stack</div>
+                <div style="color:#BFA882;font-size:0.82rem;margin-top:0.3rem;">JS couvre client (React) et serveur (Node.js) &mdash; un seul langage</div>
+            </div>
+        </div>
+        <div class="reveal" style="margin-top:1.2rem;padding:0.9rem 1.2rem;background:rgba(255,107,43,0.04);border-left:3px solid #FF6B2B;border-radius:0 8px 8px 0;color:#BFA882;font-size:0.85rem;">
+            &#127885; Badges h&eacute;berg&eacute;s sur <strong style="color:#FF6B2B;">Credly</strong> &mdash; v&eacute;rifiables en ligne par tout recruteur via lien public
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3 : HTML ESSENTIALS MODULES -->
+<div class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:380px;height:380px;top:-60px;left:-60px;background:#EF4444;opacity:0.08;"></div>
+        <div class="blob" style="width:220px;height:220px;bottom:-50px;right:-30px;background:#FF6B2B;opacity:0.06;"></div>
+    </div>
+    <div class="content">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">02A &middot; HTML ESSENTIALS</div>
+        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.2rem;">Modules &eacute;tudi&eacute;s &mdash; <span style="color:#EF4444;">HTML Essentials</span></h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
+            <div class="reveal module-row" style="border-left-color:#EF4444;"><span style="color:#EF4444;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M1</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Introduction to HTML</div><div style="color:#94a3b8;font-size:0.77rem;">Qu'est-ce que HTML, naissance du Web, &eacute;volution vers HTML5</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FF6B2B;"><span style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M2</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Structure &amp; Syntaxe</div><div style="color:#94a3b8;font-size:0.77rem;">Balises, attributs, encodage de caract&egrave;res, document bien form&eacute;</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FBBF24;"><span style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M3</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">S&eacute;mantique HTML5</div><div style="color:#94a3b8;font-size:0.77rem;">header, main, section, article, nav, footer &mdash; accessibilit&eacute; &amp; SEO</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#EF4444;"><span style="color:#EF4444;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M4</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Formulaires &amp; Tables</div><div style="color:#94a3b8;font-size:0.77rem;">Types input, validation native, label/aria, structure de tableaux</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FF6B2B;"><span style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M5</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Multim&eacute;dia &amp; Hyperliens</div><div style="color:#94a3b8;font-size:0.77rem;">img, audio, video, canvas, liens internes/externes</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FBBF24;"><span style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M6</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Compatibilit&eacute; &amp; Responsive</div><div style="color:#94a3b8;font-size:0.77rem;">Compatibilit&eacute; multi-navigateurs, viewport, meta tags, design adaptatif</div></div></div>
+        </div>
+        <div class="reveal" style="margin-top:0.8rem;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="module-tag">6 modules</span>
+            <span class="module-tag">30+ activit&eacute;s pratiques</span>
+            <span class="module-tag">Examen final Cisco</span>
+            <span class="module-tag">Badge Credly v&eacute;rifi&eacute;</span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4 : JS ESSENTIALS 1 MODULES -->
+<div class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:400px;height:400px;top:-80px;right:-80px;background:#FBBF24;opacity:0.08;"></div>
+        <div class="blob" style="width:240px;height:240px;bottom:-60px;left:-40px;background:#FF6B2B;opacity:0.06;"></div>
+    </div>
+    <div class="content">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">02B &middot; JAVASCRIPT ESSENTIALS 1</div>
+        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.2rem;">Modules &eacute;tudi&eacute;s &mdash; <span style="color:#FBBF24;">JS Essentials 1</span></h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
+            <div class="reveal module-row" style="border-left-color:#FBBF24;"><span style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M1</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Introduction &agrave; JavaScript</div><div style="color:#94a3b8;font-size:0.77rem;">Historique, environnement d'ex&eacute;cution, navigateur &amp; Node.js, premiers scripts</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FF6B2B;"><span style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M2</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Variables, Types &amp; Cast</div><div style="color:#94a3b8;font-size:0.77rem;">var/let/const, types primitifs, conversion implicite/explicite, commentaires</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#EF4444;"><span style="color:#EF4444;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M3</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Op&eacute;rateurs &amp; Interaction</div><div style="color:#94a3b8;font-size:0.77rem;">Op&eacute;rateurs arithm&eacute;tiques, logiques, prompt/alert/confirm, user input</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FBBF24;"><span style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M4</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Contr&ocirc;le de flux</div><div style="color:#94a3b8;font-size:0.77rem;">if/else, switch, boucles for/while/forEach, logique algorithmique</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#FF6B2B;"><span style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M5</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Fonctions &amp; Port&eacute;e</div><div style="color:#94a3b8;font-size:0.77rem;">D&eacute;claration, param&egrave;tres, valeur de retour, port&eacute;e lexicale, closures</div></div></div>
+            <div class="reveal module-row" style="border-left-color:#EF4444;"><span style="color:#EF4444;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M6</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Erreurs, Exceptions &amp; Debug</div><div style="color:#94a3b8;font-size:0.77rem;">try/catch, types d'erreurs, console.log, d&eacute;bogage, bonnes pratiques</div></div></div>
+        </div>
+        <div class="reveal" style="margin-top:0.8rem;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="module-tag">6 modules</span>
+            <span class="module-tag">30+ labs &amp; quiz</span>
+            <span class="module-tag">Cert. JSE Entry-Level</span>
+            <span class="module-tag">Badge Credly v&eacute;rifi&eacute;</span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5 : COMPÉTENCES -->
+<div class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:350px;height:350px;top:-70px;right:-70px;background:#FF6B2B;opacity:0.08;"></div>
+        <div class="blob" style="width:220px;height:220px;bottom:-50px;left:-40px;background:#FBBF24;opacity:0.06;"></div>
+    </div>
+    <div class="content">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">03 &middot; COMP&Eacute;TENCES ACQUISES</div>
+        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Ce que j'ai <span style="background:linear-gradient(135deg,#FF6B2B,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">concr&egrave;tement appris</span></h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="reveal" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:1.2rem;">
+                <div style="color:#EF4444;font-weight:700;font-size:0.9rem;margin-bottom:0.9rem;font-family:JetBrains Mono,monospace;">HTML Essentials</div>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <div style="display:flex;gap:8px;"><span style="color:#EF4444;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">S&eacute;mantique HTML5 </span><span style="color:#94a3b8;font-size:0.8rem;">header, main, section, article</span></div></div>
+                    <div style="display:flex;gap:8px;"><span style="color:#EF4444;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">Formulaires avanc&eacute;s </span><span style="color:#94a3b8;font-size:0.8rem;">validation native, aria</span></div></div>
+                    <div style="display:flex;gap:8px;"><span style="color:#EF4444;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">Structure de document </span><span style="color:#94a3b8;font-size:0.8rem;">hi&eacute;rarchie, SEO</span></div></div>
+                    <div style="display:flex;gap:8px;"><span style="color:#EF4444;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">Multim&eacute;dia </span><span style="color:#94a3b8;font-size:0.8rem;">img, audio, video, canvas</span></div></div>
+                </div>
+            </div>
+            <div class="reveal" style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:1.2rem;">
+                <div style="color:#FBBF24;font-weight:700;font-size:0.9rem;margin-bottom:0.9rem;font-family:JetBrains Mono,monospace;">JS Essentials 1</div>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <div style="display:flex;gap:8px;"><span style="color:#FBBF24;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">Logique algorithmique </span><span style="color:#94a3b8;font-size:0.8rem;">variables, conditions, boucles</span></div></div>
+                    <div style="display:flex;gap:8px;"><span style="color:#FBBF24;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">Fonctions &amp; port&eacute;e </span><span style="color:#94a3b8;font-size:0.8rem;">closures, scope lexical</span></div></div>
+                    <div style="display:flex;gap:8px;"><span style="color:#FBBF24;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">DOM &amp; &eacute;v&eacute;nements </span><span style="color:#94a3b8;font-size:0.8rem;">querySelector, addEventListener</span></div></div>
+                    <div style="display:flex;gap:8px;"><span style="color:#FBBF24;">&#9658;</span><div><span style="color:#f1f5f9;font-weight:600;">D&eacute;bogage </span><span style="color:#94a3b8;font-size:0.8rem;">try/catch, console, erreurs</span></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6 : APPLICATION PRATIQUE -->
+<div class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:360px;height:360px;top:-70px;left:-50px;background:#FBBF24;opacity:0.07;"></div>
+        <div class="blob" style="width:230px;height:230px;bottom:-50px;right:-40px;background:#EF4444;opacity:0.06;"></div>
+    </div>
+    <div class="content">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">04 &middot; APPLICATION PRATIQUE</div>
+        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Des comp&eacute;tences mises en <span style="color:#FF6B2B;">&oelig;uvre sur le terrain</span></h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+            <div class="reveal" style="background:rgba(255,107,43,0.05);border:1px solid rgba(255,107,43,0.15);border-radius:12px;padding:1.1rem;">
+                <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#128188;</div>
+                <div style="color:#FF6B2B;font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;">Portfolio personnel</div>
+                <div style="color:#BFA882;font-size:0.8rem;margin-bottom:0.8rem;">HTML s&eacute;mantique + JS vanilla. Filtrage de projets, animations, formulaire de contact.</div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">HTML5</span><span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">JS</span><span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">CSS</span></div>
+            </div>
+            <div class="reveal" style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:1.1rem;">
+                <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#127970;</div>
+                <div style="color:#EF4444;font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;">Stage &mdash; AGEDI</div>
+                <div style="color:#BFA882;font-size:0.8rem;margin-bottom:0.8rem;">Validation c&ocirc;t&eacute; client, manipulation DOM, int&eacute;gration API REST en &eacute;quipe.</div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="background:rgba(239,68,68,0.15);color:#EF4444;border-radius:4px;padding:2px 7px;font-size:0.7rem;">JS</span><span style="background:rgba(239,68,68,0.15);color:#EF4444;border-radius:4px;padding:2px 7px;font-size:0.7rem;">Angular</span><span style="background:rgba(239,68,68,0.15);color:#EF4444;border-radius:4px;padding:2px 7px;font-size:0.7rem;">API REST</span></div>
+            </div>
+            <div class="reveal" style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:1.1rem;">
+                <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#127891;</div>
+                <div style="color:#FBBF24;font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;">Projets BTS SLAM</div>
+                <div style="color:#BFA882;font-size:0.8rem;margin-bottom:0.8rem;">Interfaces dynamiques, accessibilit&eacute;, React + Express + MongoDB.</div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="background:rgba(251,191,36,0.15);color:#FBBF24;border-radius:4px;padding:2px 7px;font-size:0.7rem;">HTML</span><span style="background:rgba(251,191,36,0.15);color:#FBBF24;border-radius:4px;padding:2px 7px;font-size:0.7rem;">React</span><span style="background:rgba(251,191,36,0.15);color:#FBBF24;border-radius:4px;padding:2px 7px;font-size:0.7rem;">MVC</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7 : PROJECTION FULL STACK -->
+<div class="slide slide-7" data-slide="7">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:420px;height:420px;top:-90px;right:-90px;background:#FF6B2B;opacity:0.09;"></div>
+        <div class="blob" style="width:260px;height:260px;bottom:-60px;left:-50px;background:#FBBF24;opacity:0.07;"></div>
+    </div>
+    <div class="content">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">05 &middot; PROJECTION PROFESSIONNELLE</div>
+        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.2rem;">Ma trajectoire vers le <span style="background:linear-gradient(135deg,#FF6B2B,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Full Stack</span></h2>
+        <div class="reveal" style="margin-bottom:1rem;padding:0.8rem 1.2rem;background:rgba(255,107,43,0.06);border-radius:10px;color:#BFA882;font-size:0.85rem;">
+            &#128161; JavaScript est le <strong style="color:#FBBF24;">seul langage</strong> couvrant front-end (React), back-end (Node.js) et mobile (React Native) &mdash; ces certifications en sont la fondation.
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.9rem;">
+            <div class="reveal" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:12px;padding:1rem;text-align:center;">
+                <div style="color:#EF4444;font-family:JetBrains Mono,monospace;font-size:0.7rem;margin-bottom:0.4rem;">AUJOURD'HUI &#9989;</div>
+                <div style="color:#f1f5f9;font-weight:700;font-size:0.95rem;margin-bottom:0.4rem;">HTML + JS</div>
+                <div style="color:#94a3b8;font-size:0.75rem;">Fondations certifi&eacute;es Cisco Netacad</div>
+            </div>
+            <div class="reveal" style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:1rem;text-align:center;">
+                <div style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;margin-bottom:0.4rem;">&Eacute;TAPE 2</div>
+                <div style="color:#f1f5f9;font-weight:700;font-size:0.95rem;margin-bottom:0.4rem;">JS Ess. 2</div>
+                <div style="color:#94a3b8;font-size:0.75rem;">Async/await, POO, modules ES6+</div>
+            </div>
+            <div class="reveal" style="background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.2);border-radius:12px;padding:1rem;text-align:center;">
+                <div style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;margin-bottom:0.4rem;">&Eacute;TAPE 3</div>
+                <div style="color:#f1f5f9;font-weight:700;font-size:0.95rem;margin-bottom:0.4rem;">React / Vue</div>
+                <div style="color:#94a3b8;font-size:0.75rem;">Frameworks front-end modernes</div>
+            </div>
+            <div class="reveal" style="background:linear-gradient(135deg,rgba(255,107,43,0.12),rgba(251,191,36,0.12));border:1px solid rgba(255,107,43,0.3);border-radius:12px;padding:1rem;text-align:center;">
+                <div style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;margin-bottom:0.4rem;">&#127919; OBJECTIF</div>
+                <div style="background:linear-gradient(135deg,#FF6B2B,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;font-size:0.95rem;margin-bottom:0.4rem;">Full Stack Dev</div>
+                <div style="color:#94a3b8;font-size:0.75rem;">Node.js + React</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8 : CONCLUSION -->
+<div class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh">
+        <div class="blob" style="width:500px;height:500px;top:-120px;right:-100px;background:#FF6B2B;opacity:0.12;"></div>
+        <div class="blob" style="width:300px;height:300px;bottom:-80px;left:-60px;background:#FBBF24;opacity:0.08;"></div>
+        <div class="blob" style="width:200px;height:200px;top:40%;left:15%;background:#EF4444;opacity:0.07;"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;"></canvas>
+    <div class="content" style="text-align:center;">
+        <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.5rem;">06 &middot; CONCLUSION</div>
+        <h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:1rem;">Ces certifications <span style="background:linear-gradient(135deg,#FF6B2B,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">construisent<br>mon profil de d&eacute;veloppeur web</span></h2>
+        <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.9rem;margin-bottom:1.2rem;">
+            <div style="background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.15);border-radius:10px;padding:0.9rem 0.7rem;"><div style="font-size:1.4rem;margin-bottom:0.4rem;">&#9989;</div><div style="color:#BFA882;font-size:0.78rem;">Comp&eacute;tences certifi&eacute;es &amp; v&eacute;rifiables</div></div>
+            <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:10px;padding:0.9rem 0.7rem;"><div style="font-size:1.4rem;margin-bottom:0.4rem;">&#128214;</div><div style="color:#BFA882;font-size:0.78rem;">Apprentissage autonome document&eacute;</div></div>
+            <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:10px;padding:0.9rem 0.7rem;"><div style="font-size:1.4rem;margin-bottom:0.4rem;">&#128640;</div><div style="color:#BFA882;font-size:0.78rem;">Socle pour React, Node.js, Vue.js</div></div>
+            <div style="background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.15);border-radius:10px;padding:0.9rem 0.7rem;"><div style="font-size:1.4rem;margin-bottom:0.4rem;">&#128188;</div><div style="color:#BFA882;font-size:0.78rem;">Profil cr&eacute;dible d&egrave;s la sortie du BTS</div></div>
+        </div>
+        <div class="reveal" style="margin-bottom:1.2rem;">
+            <div style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.8rem;margin-bottom:0.6rem;">Prochaines &eacute;tapes</div>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                <span class="module-tag">01 &mdash; JS Essentials 2</span>
+                <span class="module-tag">02 &mdash; React (Meta Front-End)</span>
+                <span class="module-tag">03 &mdash; Node.js &amp; Express</span>
+                <span class="module-tag">04 &mdash; Projet Full Stack perso</span>
+            </div>
+        </div>
+        <div class="reveal" style="color:#78614A;font-size:0.85rem;font-style:italic;">Merci de votre attention &mdash; Je suis disponible pour vos questions.</div>
+    </div>
+</div>
+
+</div>
+
+<div class="nav-controls">
+    <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+    <div class="slide-dots" id="dots"></div>
+    <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+    <span class="slide-counter" id="counter">1 / 8</span>
+</div>
+
+<script>
+    let current = 1;
+    const total = document.querySelectorAll('.slide').length;
+    const dotsContainer = document.getElementById('dots');
+    const counter = document.getElementById('counter');
+    for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+    counter.textContent = '1 / ' + total;
+    function goToSlide(n) {
+        const prev = document.querySelector('.slide.active');
+        const next = document.querySelector('.slide[data-slide="' + n + '"]');
+        if (prev) prev.classList.remove('active');
+        if (next) { next.classList.add('active'); animateSlide(next); }
+        current = n; updateNav();
+    }
+    function changeSlide(dir) { let n = current + dir; if (n < 1) n = total; if (n > total) n = 1; goToSlide(n); }
+    function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current)); counter.textContent = current + ' / ' + total; }
+    document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+    let tx = 0;
+    document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+    document.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) changeSlide(d > 0 ? 1 : -1); });
+    function animateSlide(slide) {
+        slide.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.offsetHeight;
+            const delay = i * 0.08;
+            el.style.transition = 'opacity 0.35s ease ' + delay + 's, transform 0.35s ease ' + delay + 's';
+            el.style.opacity = '1'; el.style.transform = 'translateY(0px)';
+        });
+    }
+    document.addEventListener('mousemove', e => {
+        const s = document.querySelector('.mouse-spotlight');
+        if (s) s.style.background = 'radial-gradient(600px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(255,107,43,0.05), transparent 40%)';
+    });
+    window.initParticles = function(canvas, opts) {
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d'); canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+        let mx = -1000, my = -1000;
+        const ps = Array.from({length: opts.count||45}, () => ({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, size:Math.random()*2+.6, alpha:Math.random()*.3+.08}));
+        canvas.addEventListener('mousemove', e => { const r = canvas.getBoundingClientRect(); mx = e.clientX-r.left; my = e.clientY-r.top; });
+        canvas.addEventListener('mouseleave', () => { mx=-1000; my=-1000; });
+        (function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); ps.forEach(p => { const dx=p.x-mx, dy=p.y-my, d=Math.sqrt(dx*dx+dy*dy); if(d<100){const f=(100-d)/100*2; p.vx+=(dx/d)*f*.1; p.vy+=(dy/d)*f*.1;} p.vx*=.98; p.vy*=.98; p.x+=p.vx; p.y+=p.vy; if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0; if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fillStyle='rgba(255,107,43,'+p.alpha+')'; ctx.fill(); }); requestAnimationFrame(loop); })();
+    };
+    document.querySelectorAll('.particle-canvas').forEach(c => initParticles(c, {count:45}));
+    try { animateSlide(document.querySelector('.slide.active')); } catch(e){}
+</script>
+</body>
+</html>
