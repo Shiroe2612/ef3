@@ -57,6 +57,35 @@
         .slide::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(ellipse at center, transparent 50%, var(--color-vignette) 100%); }
         .module-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(255,107,43,0.08); border:1px solid rgba(255,107,43,0.2); border-radius:6px; padding:4px 10px; font-size:0.72rem; font-family:"JetBrains Mono",monospace; color:#FF6B2B; }
         .module-row { display:flex; align-items:flex-start; gap:12px; padding:8px 14px; border-radius:8px; background:rgba(255,107,43,0.04); border-left:3px solid; margin-bottom:6px; }
+
+        .clickable-card,
+        .clickable-title {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .clickable-card:hover,
+        .clickable-title:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,43,0.15);
+        }
+
+        .clickable-card:focus-visible,
+        .clickable-title:focus-visible {
+            outline: 2px solid #FF6B2B;
+            outline-offset: 4px;
+            border-radius: 12px;
+        }
+
+        .click-hint {
+            color: #94a3b8;
+            font-size: 0.78rem;
+            margin-top: -0.4rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -137,7 +166,21 @@
     </div>
     <div class="content">
         <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">02A &middot; HTML ESSENTIALS</div>
-        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.2rem;">Modules &eacute;tudi&eacute;s &mdash; <span style="color:#EF4444;">HTML Essentials</span></h2>
+
+        <a 
+            class="reveal clickable-title" 
+            href="https://www.credly.com/badges/6d2f4c47-bd3c-4b5a-9257-766aa5981805/public_url"
+            target="_blank" 
+            rel="noopener noreferrer"
+            style="width:fit-content;"
+        >
+            <h2 style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:0.3rem;">
+                Modules &eacute;tudi&eacute;s &mdash; <span style="color:#EF4444;">HTML Essentials</span>
+            </h2>
+        </a>
+
+        <div class="reveal click-hint">↗ Cliquer pour voir le badge Credly</div>
+
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
             <div class="reveal module-row" style="border-left-color:#EF4444;"><span style="color:#EF4444;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M1</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Introduction to HTML</div><div style="color:#94a3b8;font-size:0.77rem;">Qu'est-ce que HTML, naissance du Web, &eacute;volution vers HTML5</div></div></div>
             <div class="reveal module-row" style="border-left-color:#FF6B2B;"><span style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M2</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Structure &amp; Syntaxe</div><div style="color:#94a3b8;font-size:0.77rem;">Balises, attributs, encodage de caract&egrave;res, document bien form&eacute;</div></div></div>
@@ -163,7 +206,21 @@
     </div>
     <div class="content">
         <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">02B &middot; JAVASCRIPT ESSENTIALS 1</div>
-        <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.2rem;">Modules &eacute;tudi&eacute;s &mdash; <span style="color:#FBBF24;">JS Essentials 1</span></h2>
+
+        <a 
+            class="reveal clickable-title" 
+            href="https://www.credly.com/badges/b1c1268b-1be8-4baa-9262-c892f3000e71/public_url"
+            target="_blank" 
+            rel="noopener noreferrer"
+            style="width:fit-content;"
+        >
+            <h2 style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:0.3rem;">
+                Modules &eacute;tudi&eacute;s &mdash; <span style="color:#FBBF24;">JS Essentials 1</span>
+            </h2>
+        </a>
+
+        <div class="reveal click-hint">↗ Cliquer pour voir le badge Credly</div>
+
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
             <div class="reveal module-row" style="border-left-color:#FBBF24;"><span style="color:#FBBF24;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M1</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Introduction &agrave; JavaScript</div><div style="color:#94a3b8;font-size:0.77rem;">Historique, environnement d'ex&eacute;cution, navigateur &amp; Node.js, premiers scripts</div></div></div>
             <div class="reveal module-row" style="border-left-color:#FF6B2B;"><span style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.7rem;min-width:44px;">M2</span><div><div style="color:#f1f5f9;font-weight:600;font-size:0.86rem;">Variables, Types &amp; Cast</div><div style="color:#94a3b8;font-size:0.77rem;">var/let/const, types primitifs, conversion implicite/explicite, commentaires</div></div></div>
@@ -223,18 +280,31 @@
         <div class="reveal" style="color:#FF6B2B;font-family:JetBrains Mono,monospace;font-size:0.75rem;margin-bottom:0.4rem;">04 &middot; APPLICATION PRATIQUE</div>
         <h2 class="reveal" style="font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Des comp&eacute;tences mises en <span style="color:#FF6B2B;">&oelig;uvre sur le terrain</span></h2>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
-            <div class="reveal" style="background:rgba(255,107,43,0.05);border:1px solid rgba(255,107,43,0.15);border-radius:12px;padding:1.1rem;">
+
+            <a 
+                class="reveal clickable-card"
+                href="https://www.raphael-boyer.cafe/"
+                target="_blank" 
+                rel="noopener noreferrer"
+                style="background:rgba(255,107,43,0.05);border:1px solid rgba(255,107,43,0.15);border-radius:12px;padding:1.1rem;"
+            >
                 <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#128188;</div>
                 <div style="color:#FF6B2B;font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;">Portfolio personnel</div>
                 <div style="color:#BFA882;font-size:0.8rem;margin-bottom:0.8rem;">HTML s&eacute;mantique + JS vanilla. Filtrage de projets, animations, formulaire de contact.</div>
-                <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">HTML5</span><span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">JS</span><span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">CSS</span></div>
-            </div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                    <span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">HTML5</span>
+                    <span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">JS</span>
+                    <span style="background:rgba(255,107,43,0.15);color:#FF6B2B;border-radius:4px;padding:2px 7px;font-size:0.7rem;">CSS</span>
+                </div>
+            </a>
+
             <div class="reveal" style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:1.1rem;">
                 <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#127970;</div>
                 <div style="color:#EF4444;font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;">Stage &mdash; AGEDI</div>
                 <div style="color:#BFA882;font-size:0.8rem;margin-bottom:0.8rem;">Validation c&ocirc;t&eacute; client, manipulation DOM, int&eacute;gration API REST en &eacute;quipe.</div>
                 <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="background:rgba(239,68,68,0.15);color:#EF4444;border-radius:4px;padding:2px 7px;font-size:0.7rem;">JS</span><span style="background:rgba(239,68,68,0.15);color:#EF4444;border-radius:4px;padding:2px 7px;font-size:0.7rem;">Angular</span><span style="background:rgba(239,68,68,0.15);color:#EF4444;border-radius:4px;padding:2px 7px;font-size:0.7rem;">API REST</span></div>
             </div>
+
             <div class="reveal" style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:1.1rem;">
                 <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#127891;</div>
                 <div style="color:#FBBF24;font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;">Projets BTS SLAM</div>
